@@ -1,8 +1,6 @@
 #!/bin/bash
 
-echo "========================================="
-echo "NGINX POC - IP HASH"
-echo "========================================="
+echo "=== IP HASH ==="
 echo
 
 for i in {1..15}; do
