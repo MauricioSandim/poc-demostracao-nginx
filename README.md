@@ -55,11 +55,12 @@ Cada backend responde com sua identificação para facilitar a visualização da
 │   └── app.py
 │
 └── scripts/
-    ├── failover.sh
-    ├── least-conn.sh
-    ├── recovery.sh
     ├── round-robin.sh
-    └── weighted.sh
+    ├── least-conn.sh
+    ├── weighted.sh
+    ├── ip-hash.sh
+    ├── failover.sh
+    └── recovery.sh
 ```
 
 ---
@@ -257,7 +258,65 @@ Demonstrar distribuição proporcional aos pesos configurados.
 
 ---
 
-# Cenário 4 - Tolerância a Falhas
+# Cenário 4 - IP Hash (Sticky Session)
+
+### Endpoint
+
+```text id="1amxzu"
+http://localhost:9753/sticky
+```
+
+### Executar
+
+```bash id="lh7qgq"
+./scripts/ip-hash.sh
+```
+
+### O que o script faz
+
+Executa várias requisições para o endpoint configurado com o algoritmo `ip_hash`.
+
+Exemplo simplificado:
+
+```bash id="d09f6s"
+for i in {1..10}; do
+    curl -s localhost:9753/sticky
+    echo
+done
+```
+
+### Resultado esperado
+
+```text id="ys17t5"
+app2
+app2
+app2
+app2
+app2
+app2
+...
+```
+
+ou
+
+```text id="ajfglg"
+app1
+app1
+app1
+app1
+app1
+...
+```
+
+Dependendo do IP do cliente.
+
+### Objetivo
+
+Demonstrar afinidade de sessão (session stickiness), onde requisições originadas do mesmo cliente são encaminhadas para o mesmo backend.
+
+---
+
+# Cenário 5 - Tolerância a Falhas
 
 ### Executar
 
@@ -293,7 +352,7 @@ Demonstrar continuidade do serviço após a falha de um nó.
 
 ---
 
-# Cenário 5 - Recuperação
+# Cenário 6 - Recuperação
 
 ### Executar
 
