@@ -39,17 +39,27 @@ Cada backend responde com sua identificação para facilitar a visualização da
 ```text
 .
 ├── docker-compose.yml
-├── nginx/
-│   └── nginx.conf
-├── scripts/
-│   ├── round-robin.sh
-│   ├── least-conn.sh
-│   ├── weighted.sh
-│   ├── failover.sh
-│   └── recovery.sh
+├── README.md
+│
+├── infra/
+│   └── nginx/
+│       └── nginx.conf
+│
 ├── server1/
+│   └── app.py
+│
 ├── server2/
-└── server3/
+│   └── app.py
+│
+├── server3/
+│   └── app.py
+│
+└── scripts/
+    ├── failover.sh
+    ├── least-conn.sh
+    ├── recovery.sh
+    ├── round-robin.sh
+    └── weighted.sh
 ```
 
 ---
